@@ -46,4 +46,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function licenses()
+    {
+        return $this->belongsToMany(License::class);
+    }
 }
