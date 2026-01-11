@@ -1,42 +1,85 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Edytuj produkt') }}
+        <h2 class="text-xl font-semibold text-white">
+            Edytuj produkt
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("Formularz edycji produktu.") }}
-                    <form action="{{ route('admin.products.update', $product->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div>
-                            <label for="name">Nazwa:</label>
-                            <input type="text" id="name" name="name" value="{{ $product->name }}" required>
-                        </div>
-                        <div>
-                            <label for="description">Opis:</label>
-                            <textarea id="description" name="description" required>{{ $product->description }}</textarea>
-                        </div>
-                        <div>
-                            <label for="version">Wersja:</label>
-                            <input type="text" id="version" name="version" value="{{ $product->version }}" required>
-                        </div>
-                        <div>
-                            <label for="price">Cena:</label>
-                            <input type="number" id="price" name="price" value="{{ $product->price }}" step="0.01" required>
-                        </div>
-                        <div>
-                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
-                                Zapisz
-                            </button>
-                        </div>
-                    </form>
+    <div class="py-12 max-w-3xl mx-auto px-4">
+        <div class="bg-white/5
+                    rounded-2xl p-8
+                    border border-white/10">
+
+            <p class="text-gray-400 mb-6">
+                Formularz edycji produktu
+            </p>
+
+            <form action="{{ route('admin.products.update', $product->id) }}" method="POST" class="space-y-6">
+                @csrf
+                @method('PUT')
+
+                <!-- Nazwa -->
+                <div>
+                    <label for="name" class="block text-sm text-gray-400 mb-1">
+                        Nazwa produktu
+                    </label>
+                    <input type="text" id="name" name="name" value="{{ $product->name }}" required
+                           class="w-full bg-white/10 text-white
+                                  border border-white/10 rounded-lg px-4 py-2
+                                  focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 </div>
-            </div>
+
+                <!-- Opis -->
+                <div>
+                    <label for="description" class="block text-sm text-gray-400 mb-1">
+                        Opis
+                    </label>
+                    <textarea id="description" name="description" required
+                              class="w-full bg-white/10 text-white
+                                     border border-white/10 rounded-lg px-4 py-2
+                                     focus:outline-none focus:ring-2 focus:ring-indigo-500
+                                     resize-none h-24">{{ $product->description }}</textarea>
+                </div>
+
+                <!-- Wersja -->
+                <div>
+                    <label for="version" class="block text-sm text-gray-400 mb-1">
+                        Wersja
+                    </label>
+                    <input type="text" id="version" name="version" value="{{ $product->version }}" required
+                           class="w-full bg-white/10 text-white
+                                  border border-white/10 rounded-lg px-4 py-2
+                                  focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+
+                <!-- Cena -->
+                <div>
+                    <label for="price" class="block text-sm text-gray-400 mb-1">
+                        Cena (PLN)
+                    </label>
+                    <input type="number" id="price" name="price" value="{{ $product->price }}" step="0.01" required
+                           class="w-full bg-white/10 text-white
+                                  border border-white/10 rounded-lg px-4 py-2
+                                  focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+
+                <!-- Akcje -->
+                <div class="flex justify-end gap-4 items-center">
+                    <a href="{{ route('admin.products') }}"
+                       class="text-gray-400 hover:text-gray-300 transition">
+                        Anuluj
+                    </a>
+
+                    <button type="submit"
+                            class="bg-indigo-600 hover:bg-indigo-700
+                                   text-white font-medium
+                                   px-6 py-2 rounded-lg
+                                   shadow-[0_0_7px_rgba(99,102,241,0.6)]
+                                   transition">
+                        Zapisz zmiany
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </x-app-layout>

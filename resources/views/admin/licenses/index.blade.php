@@ -1,66 +1,93 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold">
+        <h2 class="text-xl font-semibold text-white">
             Lista licencji
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <a href="{{ route('admin.licenses.add') }}"
-                    class="inline-block bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded m-6">
-                        Dodaj nową licencję
-                    </a>
+    <div class="py-12 max-w-7xl mx-auto px-4">
 
-            </div>
+        <!-- Dodaj licencję -->
+        <div class="mb-6 flex justify-end">
+            <a href="{{ route('admin.licenses.add') }}"
+               class="bg-green-600 hover:bg-green-700
+                      text-white font-medium
+                      px-5 py-2 rounded-lg
+                      shadow-[0_0_7px_rgba(34,197,94,0.5)]
+                      transition">
+                + Dodaj nową licencję
+            </a>
         </div>
 
-    <div class="py-12 max-w-7xl mx-auto">
-        <div class="bg-white dark:bg-gray-800 p-6 rounded shadow">
-            <table class="w-full border">
-                <thead>
-                    <tr class="bg-gray-200 dark:bg-gray-700">
-                        <th class="p-2 border">ID</th>
-                        <th class="p-2 border">Nazwa Produktu</th>
-                        <th class="p-2 border">Wersja Produktu</th>
-                        <th class="p-2 border">Klucz licencji</th>
-                        <th class="p-2 border">Maksymalna liczba użytkowników</th>
-                        <th class="p-2 border">Liczba użytkowników</th>
-                        <th class="p-2 border">Data wygaśnięcia</th>
-                        <th class="p-2 border">Status</th>
-                        <th class="p-2 border">Cena</th>
-                        <th class="p-2 border">Akcje</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($licenses as $license)
-                        <tr>
-                            <td class="p-2 border">{{ $license->id }}</td>
-                            <td class="p-2 border">{{ $license->product->name }}</td>
-                            <td class="p-2 border">{{ $license->product->version }}</td>
-                            <td class="p-2 border">{{ $license->key }}</td>
-                            <td class="p-2 border">{{ $license->max_users }}</td>
-                            <td class="p-2 border">{{ $license->countCurrentUsers() }}</td>
-                            <td class="p-2 border">{{ $license->expiration_date }}</td>
-                            <td class="p-2 border">{{ $license->status }}</td>
-                            <td class="p-2 border">{{ $license->price }}</td>
-                            <td class="p-2 border">
-                                <!-- Edytuj, Usuń -->
-                                <a href="{{ route('admin.licenses.edit', $license->id) }}" class="text-blue-600 hover:underline">Edytuj</a>
-                                |
-                                <a href="{{ route('admin.licenses.users', $license->id) }}" class="text-blue-600 hover:underline">Użytkownicy</a>
-                                |
-                                <form action="{{ route('admin.licenses.delete', $license->id) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:underline" onclick="return confirm('Czy na pewno chcesz usunąć tę licencję?')">Usuń</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        <!-- Licencje -->
+        <div class="space-y-4">
+            @foreach($licenses as $license)
+                <div class="bg-white/5 backdrop-blur-xl
+                            rounded-2xl p-4
+                            border border-white/10
+                            shadow-[0_0_10px_rgba(99,102,241,0.3)]
+                            hover:shadow-[0_0_20px_rgba(99,102,241,0.5)]
+                            transition flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+
+                    <!-- Dane licencji -->
+                    <div class="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
+                        <div>
+                            <span class="text-gray-400 text-sm">ID</span>
+                            <p class="text-white font-medium">{{ $license->id }}</p>
+                        </div>
+                        <div>
+                            <span class="text-gray-400 text-sm">Produkt</span>
+                            <p class="text-white">{{ $license->product->name }}</p>
+                        </div>
+                        <div>
+                            <span class="text-gray-400 text-sm">Wersja</span>
+                            <p class="text-white">{{ $license->product->version }}</p>
+                        </div>
+                        <div>
+                            <span class="text-gray-400 text-sm">Klucz</span>
+                            <p class="text-indigo-400 font-mono text-sm">{{ $license->key }}</p>
+                        </div>
+                        <div>
+                            <span class="text-gray-400 text-sm">Użytkownicy</span>
+                            <p class="text-white">{{ $license->countCurrentUsers() }}/{{ $license->max_users }}</p>
+                        </div>
+                        <div>
+                            <span class="text-gray-400 text-sm">Status</span>
+                            <p class="text-white">{{ $license->status }}</p>
+                        </div>
+                        <div>
+                            <span class="text-gray-400 text-sm">Data wygaśnięcia</span>
+                            <p class="text-white">{{ $license->expiration_date }}</p>
+                        </div>
+                        <div>
+                            <span class="text-gray-400 text-sm">Cena</span>
+                            <p class="text-indigo-400 font-semibold">{{ $license->price }} zł</p>
+                        </div>
+                    </div>
+
+                    <!-- Akcje -->
+                    <div class="flex gap-3 md:flex-col md:items-end mt-2 md:mt-0">
+                        <a href="{{ route('admin.licenses.edit', $license->id) }}"
+                           class="text-indigo-400 hover:text-indigo-300 text-sm transition">
+                            Edytuj
+                        </a>
+                        <a href="{{ route('admin.licenses.users', $license->id) }}"
+                           class="text-indigo-400 hover:text-indigo-300 text-sm transition">
+                            Użytkownicy
+                        </a>
+                        <form action="{{ route('admin.licenses.delete', $license->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
+                                    class="text-red-400 hover:text-red-300 text-sm transition"
+                                    onclick="return confirm('Czy na pewno chcesz usunąć tę licencję?')">
+                                Usuń
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            @endforeach
         </div>
     </div>
 </x-app-layout>

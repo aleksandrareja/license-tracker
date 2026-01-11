@@ -1,56 +1,77 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold">
+        <h2 class="text-xl font-semibold text-white">
             Lista produktów
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <a href="{{ route('admin.products.create') }}"
-                    class="inline-block bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded m-6">
-                        Dodaj nowy produkt
-                    </a>
+    <div class="py-12 max-w-7xl mx-auto px-4">
 
-            </div>
+        <!-- Button -->
+        <div class="mb-6 flex justify-end">
+            <a href="{{ route('admin.products.create') }}"
+               class="bg-green-600 hover:bg-green-700
+                      text-white font-medium
+                      px-5 py-2 rounded-lg
+                      shadow-[0_0_7px_rgba(34,197,94,0.5)]
+                      transition">
+                + Dodaj produkt
+            </a>
         </div>
 
-    <div class="py-12 max-w-7xl mx-auto">
-        <div class="bg-white dark:bg-gray-800 p-6 rounded shadow">
-            <table class="w-full border">
-                <thead>
-                    <tr class="bg-gray-200 dark:bg-gray-700">
-                        <th class="p-2 border">ID</th>
-                        <th class="p-2 border">Nazwa</th>
-                        <th class="p-2 border">Opis</th>
-                        <th class="p-2 border">Wersja</th>
-                        <th class="p-2 border">Cena</th>
-                        <th class="p-2 border">Akcje</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($products as $product)
-                        <tr>
-                            <td class="p-2 border">{{ $product->id }}</td>
-                            <td class="p-2 border">{{ $product->name }}</td>
-                            <td class="p-2 border">{{ $product->description }}</td>
-                            <td class="p-2 border">{{ $product->version }}</td>
-                            <td class="p-2 border">{{ $product->price }}</td>
-                            <td class="p-2 border">
-                                <!-- Edytuj, Usuń -->
-                                <a href="{{ route('admin.products.edit', $product->id) }}" class="text-blue-600 hover:underline">Edytuj</a>
-                                |
-                                <form action="{{ route('admin.products.delete', $product->id) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:underline" onclick="return confirm('Czy na pewno chcesz usunąć ten produkt?')">Usuń</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        <!-- Cards grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            @foreach($products as $product)
+                <div class="bg-white/5 backdrop-blur-xl
+                            rounded-2xl p-6
+                            border border-white/10
+                            shadow-[0_0_10px_rgba(99,102,241,0.35)]
+                            hover:shadow-[0_0_20px_rgba(99,102,241,0.6)]
+                            transition">
+
+                    <!-- Header -->
+                    <div class="mb-3">
+                        <h3 class="text-lg font-semibold text-white">
+                            {{ $product->name }}
+                        </h3>
+                        <p class="text-sm text-gray-400">
+                            Wersja: {{ $product->version ?? '—' }}
+                        </p>
+                    </div>
+
+                    <!-- Description -->
+                    <p class="text-gray-300 text-sm mb-4 line-clamp-3">
+                        {{ $product->description ?? 'Brak opisu produktu' }}
+                    </p>
+
+                    <!-- Price -->
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-gray-400 text-sm">Cena</span>
+                        <span class="text-indigo-400 font-semibold text-lg">
+                            {{ number_format($product->price, 2) }} zł
+                        </span>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex justify-end gap-4 text-sm">
+                        <a href="{{ route('admin.products.edit', $product->id) }}"
+                           class="text-indigo-400 hover:text-indigo-300 transition">
+                            Edytuj
+                        </a>
+
+                        <form action="{{ route('admin.products.delete', $product->id) }}"
+                              method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
+                                    class="text-red-400 hover:text-red-300 transition"
+                                    onclick="return confirm('Czy na pewno chcesz usunąć ten produkt?')">
+                                Usuń
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
 </x-app-layout>

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\LicenseController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\LicenseManagementController;
 use App\Http\Controllers\Admin\ProductManagementController;
@@ -78,9 +79,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/user/licenses', function () {
-        return view('dashboard.user');
-    })->name('user.licenses');
+    Route::get('/user/licenses', [LicenseController::class, 'index'])
+        ->name('user.licenses');
 });
 
 

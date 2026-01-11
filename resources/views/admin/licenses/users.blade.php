@@ -1,35 +1,39 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold">
-            Lista użytkowników licencji: {{ $license->product->name }}
+        <h2 class="text-xl font-semibold text-white">
+            Użytkownicy licencji: {{ $license->product->name }}
         </h2>
     </x-slot>
 
-    <div class="py-12 max-w-7xl mx-auto">
-        <div class="bg-white dark:bg-gray-800 sp-6 rounded shadow">
-            <table class="w-full border">
+    <!-- Lista użytkowników -->
+    <div class="py-12 max-w-4xl mx-auto px-4">
+        <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
+            <table class="w-full text-gray-200 border-collapse text-center">
                 <thead>
-                    <tr class="bg-gray-200 dark:bg-gray-700">
-                        <th class="p-2 border">ID</th>
-                        <th class="p-2 border">Imię</th>
-                        <th class="p-2 border">Email</th>
-                        <th class="p-2 border">Rola</th>
-                        <th class="p-2 border">Akcje</th>
+                    <tr class="bg-white/10 text-gray-300">
+                        <th class="p-2">ID</th>
+                        <th class="p-2">Imię</th>
+                        <th class="p-2">Email</th>
+                        <th class="p-2">Rola</th>
+                        <th class="p-2">Akcje</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($users as $user)
-                        <tr>
-                            <td class="p-2 border">{{ $user->id }}</td>
-                            <td class="p-2 border">{{ $user->name }}</td>
-                            <td class="p-2 border">{{ $user->email }}</td>
-                            <td class="p-2 border">{{ $user->role }}</td>
-                            <td class="p-2 border">
-                                <!--  Usuń -->                                
+                        <tr class="border-t border-white/10">
+                            <td class="p-2">{{ $user->id }}</td>
+                            <td class="p-2">{{ $user->name }}</td>
+                            <td class="p-2">{{ $user->email }}</td>
+                            <td class="p-2">{{ $user->role }}</td>
+                            <td class="p-2">
                                 <form action="{{ route('admin.licenses.remove_user', $user->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:underline" onclick="return confirm('Czy na pewno chcesz usunąć tego użytkownika?')">Usuń</button>
+                                    <button type="submit" 
+                                            class="text-red-400 hover:text-red-300 transition"
+                                            onclick="return confirm('Czy na pewno chcesz usunąć tego użytkownika?')">
+                                        Usuń
+                                    </button>
                                 </form>
                             </td>
                         </tr>
@@ -39,29 +43,31 @@
         </div>
     </div>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h2 class="font-semibold text-xl mb-4">Dodaj użytkownika do licencji</h2>
-                    <form action="{{ route('admin.licenses.add_user', $license->id) }}" method="POST">
-                        @csrf
-                        <div>
-                            <label for="user_id">Wybierz użytkownika:</label>
-                            <select id="user_id" name="user_id" required>
-                                <option value="">-- Wybierz użytkownika --</option>
-                                @foreach($other_users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mt-4">
-                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
-                                Dodaj użytkownika
-                            </button>
-                        </div>
-                    </form>
+    <!-- Dodaj użytkownika -->
+    <div class="py-0 max-w-4xl mx-auto px-4">
+        <div class="bg-white/5 p-6 rounded-2xl border border-white/10 mt-6">
+            <h2 class="text-lg font-semibold text-white mb-4">Dodaj użytkownika do licencji</h2>
+            <form action="{{ route('admin.licenses.add_user', $license->id) }}" method="POST" class="space-y-4">
+                @csrf
+                <div>
+                    <label for="user_id" class="block text-sm text-gray-400 mb-1">Wybierz użytkownika:</label>
+                    <select id="user_id" name="user_id" required
+                            class="w-full bg-white/10 text-white border border-white/10 rounded-lg px-4 py-2
+                                   focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <option value="">-- Wybierz użytkownika --</option>
+                        @foreach($other_users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>
+                        @endforeach
+                    </select>
                 </div>
-            </div>
+                <div class="flex justify-end">
+                    <button type="submit" 
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-6 py-2 rounded-lg
+                                   shadow-[0_0_7px_rgba(99,102,241,0.6)] transition">
+                        Dodaj użytkownika
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </x-app-layout>

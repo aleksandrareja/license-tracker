@@ -33,5 +33,26 @@ class License extends Model
         return $this->users()->count();
     }
 
+    public function daysUntilExpiration()
+    {
+        if (!$this->expiration_date) {
+            return 'N/A';
+        }
+
+        $now = now();
+        $expiration = $this->expiration_date;
+
+        if ($now->greaterThan($expiration)) {
+            return 'Wygasła';
+        }
+
+        $daysLeft = $now->diffInDays($expiration);
+        if ($daysLeft<1) {
+            return '0 dni';
+        }
+
+        return $now->diffInDays($expiration) . ' dni';
+    }
+
 }
 
