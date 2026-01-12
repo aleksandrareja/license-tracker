@@ -51,4 +51,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(License::class);
     }
+
+    public static function countUsers(){
+        return self::count();
+    }
 }

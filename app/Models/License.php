@@ -46,12 +46,38 @@ class License extends Model
             return 'Wygasła';
         }
 
-        $daysLeft = $now->diffInDays($expiration);
-        if ($daysLeft<1) {
-            return '0 dni';
+         // policz pełne dni w górę
+        $hoursLeft = $now->diffInHours($expiration);
+        $daysLeft = (int) ceil($hoursLeft / 24);
+
+        return $daysLeft . ' dni';
+    }
+
+    public static function activeLicensesCount()
+    {
+        return self::where('status', 'active')->count();
+    }
+
+    public function ifExpiresSoon()
+    {
+        if (!$this->expiration_date) {
+            return false;
         }
 
-        return $now->diffInDays($expiration) . ' dni';
+        $now = now();
+        $expiration = $this->expiration_date;
+
+        if ($now->greaterThan($expiration)) {
+            return false;
+        }
+
+        $daysLeft = $now->diffInDays($expiration);
+        return $daysLeft <= 14;
+    }
+
+    public static function totalRevenue()
+    {
+        return self::where('status', 'active')->sum('price');
     }
 
 }

@@ -12,8 +12,9 @@ class LicenseController extends Controller
         // Pobierz zalogowanego użytkownika
         $user = auth()->user();
 
-        $licenses = $user->licenses()->with('product')->orderBy('expiration_date')->get();
+        $licenses_active = $user->licenses()->with('product')->where('status', 'active')->orderBy('expiration_date')->get();
+        $licenses_expired = $user->licenses()->with('product')->where('status', 'expired')->orderBy('expiration_date')->get();
 
-        return view('user.licenses.index', compact('licenses'));
+        return view('user.licenses.index', compact('licenses_active', 'licenses_expired'));
     }
 }
