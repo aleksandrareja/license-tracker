@@ -47,7 +47,7 @@ class LicenseManagementController extends Controller
             'key' => 'required|string|unique:licenses,key',
             'max_users' => 'required|integer|min:1',
             'expiration_date' => 'nullable|date',
-            'status' => 'required|in:active,expired,revoked',
+            'status' => 'required|in:active,expired,suspended',
             'price' => 'required|numeric|min:0',
         ]);
 
@@ -83,7 +83,7 @@ class LicenseManagementController extends Controller
             'key' => 'required|string|unique:licenses,key,' . $license->id,
             'max_users' => 'required|integer|min:1',
             'expiration_date' => 'nullable|date',
-            'status' => 'required|in:active,expired,revoked',
+            'status' => 'required|in:active,expired,suspended',
             'price' => 'required|numeric|min:0',
         ]);
 
@@ -126,7 +126,6 @@ class LicenseManagementController extends Controller
 
         $license = License::findOrFail($id);
 
-        // Logika usuwania użytkownika z licencji
         $license->users()->detach($request->user_id);
 
         return redirect()->route('admin.licenses.users', $license->id)->with('success', 'User removed from license successfully.');
@@ -150,7 +149,6 @@ class LicenseManagementController extends Controller
         }
 
 
-        // Logika dodawania użytkownika do licencji
         $license->users()->attach($request->user_id);
 
         return redirect()->route('admin.licenses.users', $license->id)->with('success', 'User added to license successfully.');

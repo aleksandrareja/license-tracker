@@ -80,7 +80,7 @@
                                    focus:outline-none focus:ring-2 focus:ring-indigo-500">
                         <option value="active" {{ $license->status == 'active' ? 'selected' : '' }}>Aktywna</option>
                         <option value="expired" {{ $license->status == 'expired' ? 'selected' : '' }}>Wygasła</option>
-                        <option value="revoked" {{ $license->status == 'revoked' ? 'selected' : '' }}>Zawieszona</option>
+                        <option value="suspended" {{ $license->status == 'suspended' ? 'selected' : '' }}>Zawieszona</option>
                     </select>
                 </div>
 

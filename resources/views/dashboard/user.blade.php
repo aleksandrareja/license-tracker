@@ -18,7 +18,7 @@
              <div class="mt-6 p-6 bg-white/5 dark:bg-gray-900 overflow-hidden shadow-sm sm:rounded-lg">
                 <h2 class="text-xl font-semibold text-white mb-4">Wkrótce wygasające licencje</h2>
                 <div class="grid gap-6">
-                    @foreach($expiringLicenses as $license)
+                    @foreach($usersExpiringLicenses as $license)
                         <div class="bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-white/10
                                     shadow-[0_0_10px_rgba(99,102,241,0.4)] hover:shadow-[0_0_20px_rgba(99,102,241,0.6)]
                                     transition">

@@ -15,7 +15,7 @@
                 <div>
                     <label for="product_id" class="block text-sm text-gray-400 mb-1">Produkt</label>
                     <select id="product_id" name="product_id" required
-                            class="w-full bg-white/10 text-white border border-white/10 rounded-lg px-4 py-2
+                            class="w-full bg-white/10 text-gray-400 border border-white/10 rounded-lg px-4 py-2
                                    focus:outline-none focus:ring-2 focus:ring-indigo-500">
                         <option value="">Wybierz produkt</option>
                         @foreach($products as $product)
@@ -52,11 +52,11 @@
                 <div>
                     <label for="status" class="block text-sm text-gray-400 mb-1">Status</label>
                     <select id="status" name="status" required
-                            class="w-full bg-white/10 text-white border border-white/10 rounded-lg px-4 py-2
+                            class="w-full bg-white/10 text-gray-400 border border-white/10 rounded-lg px-4 py-2
                                    focus:outline-none focus:ring-2 focus:ring-indigo-500">
                         <option value="active">Aktywna</option>
                         <option value="expired">Wygasła</option>
-                        <option value="revoked">Zawieszona</option>
+                        <option value="suspended">Zawieszona</option>
                     </select>
                 </div>
 

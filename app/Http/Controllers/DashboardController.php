@@ -14,10 +14,12 @@ class DashboardController extends Controller
         $licenses = License::with('product')->get();
         $expiringLicenses = $licenses->filter(fn($license) => $license->ifExpiresSoon());
 
+        $usersExpiringLicenses = $user->licenses()->with('product')->get()->filter(fn($license) => $license->ifExpiresSoon());
+
         if ($user->role === 'admin') {
             return view('dashboard.admin', compact('user', 'expiringLicenses'));
         }
 
-        return view('dashboard.user', compact('user', 'expiringLicenses'));
+        return view('dashboard.user', compact('user', 'usersExpiringLicenses'));
     }
 }

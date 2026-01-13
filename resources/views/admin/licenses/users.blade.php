@@ -26,9 +26,10 @@
                             <td class="p-2">{{ $user->email }}</td>
                             <td class="p-2">{{ $user->role }}</td>
                             <td class="p-2">
-                                <form action="{{ route('admin.licenses.remove_user', $user->id) }}" method="POST" style="display:inline;">
+                                <form action="{{ route('admin.licenses.remove_user', $license->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
+                                    <input type="hidden" name="user_id" value="{{ $user->id }}">
                                     <button type="submit" 
                                             class="text-red-400 hover:text-red-300 transition"
                                             onclick="return confirm('Czy na pewno chcesz usunąć tego użytkownika?')">
@@ -52,7 +53,7 @@
                 <div>
                     <label for="user_id" class="block text-sm text-gray-400 mb-1">Wybierz użytkownika:</label>
                     <select id="user_id" name="user_id" required
-                            class="w-full bg-white/10 text-white border border-white/10 rounded-lg px-4 py-2
+                            class="w-full bg-white/10 text-gray-400 border border-white/10 rounded-lg px-4 py-2
                                    focus:outline-none focus:ring-2 focus:ring-indigo-500">
                         <option value="">-- Wybierz użytkownika --</option>
                         @foreach($other_users as $user)

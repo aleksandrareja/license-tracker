@@ -37,5 +37,9 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('User123'),
             'role' => 'user',
         ]);
+
+        $this->call([
+            LicenseSeeder::class,
+        ]);
     }
 }

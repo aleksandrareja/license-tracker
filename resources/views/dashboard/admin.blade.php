@@ -81,7 +81,7 @@
             </div>
 
 
-            <div class="mt-6 p-6 bg-white/5 dark:bg-gray-900 rounded-2xl border border-white/10">
+            <div class="mt-6 p-6 bg-white/5 dark:bg-gray-900 overflow-hidden shadow-sm sm:rounded-lg">
                 <h2 class="text-xl font-semibold text-white mb-4">Aktualne licencje</h2>
 
                 <a href="{{ route('user.licenses') }}"
@@ -95,7 +95,7 @@
             </div>
 
 
-           <div class="mt-6 p-6 bg-white/5 dark:bg-gray-900 rounded-2xl border border-white/10">
+           <div class="mt-6 p-6 bg-white/5 dark:bg-gray-900 overflow-hidden shadow-sm sm:rounded-lg ">
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     
                     <a href="{{ route('admin.users') }}"

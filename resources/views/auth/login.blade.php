@@ -14,7 +14,7 @@
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <x-input-label for="password" :value="__('Hasło')" />
 
             <x-text-input id="password" class="block mt-1 w-full"
                             type="password"
@@ -25,23 +25,50 @@
         </div>
 
         <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-white">{{ __('Remember me') }}</span>
+        <div class="flex items-center justify-between text-sm mt-4">
+            <label for="remember_me" class="inline-flex items-center gap-2 text-gray-300">
+                <input
+                    id="remember_me"
+                    type="checkbox"
+                    name="remember"
+                    class="rounded bg-white/10 border-white/20
+                           text-indigo-500 focus:ring-indigo-500"
+                >
+                Zapamiętaj mnie
             </label>
-        </div>
 
-        <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-white hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
+                <a
+                    href="{{ route('password.request') }}"
+                    class="text-indigo-300 hover:text-indigo-400 transition"
+                >
+                    Zapomniałeś hasła?
                 </a>
             @endif
+        </div>
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
+        <!-- Button -->
+        <div class="pt-4">
+            <x-primary-button
+                class="w-full justify-center rounded-xl py-3 text-lg
+                       bg-indigo-600 hover:bg-indigo-700
+                       shadow-[0_0_7px_rgba(99,102,241,0.6)]
+                       transition">
+                Zaloguj się
             </x-primary-button>
         </div>
+
+        <!-- Register -->
+        @if (Route::has('register'))
+            <div class="text-center text-sm text-gray-300 mt-4">
+                Nie masz konta?
+                <a
+                    href="{{ route('register') }}"
+                    class="text-indigo-400 hover:text-indigo-300 transition"
+                >
+                    Zarejestruj się
+                </a>
+            </div>
+        @endif
     </form>
 </x-guest-layout>
