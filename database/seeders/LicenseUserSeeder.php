@@ -23,9 +23,13 @@ class LicenseUserSeeder extends Seeder
             }
 
             // max liczba użytkowników do przypisania
-            $max = min($license->max_users, $users->count());
+            $max = min($license->max_users-$license->countCurrentUsers(), $users->count());
 
-            //INSERT INTO license_user (license_id, user_id) VALUES (...) ON DUPLICATE KEY IGNORE
+            if ($max <= 0) {
+                continue;
+            }
+
+            //INSERT INTO license_user (license_id, user_id) VALUES (...)
             $assignedUsers = $users->random(rand(1, $max))->pluck('id'); // zwraca kolekcję ID losowych użytkowników
             $license->users()->sync($assignedUsers);
         }
