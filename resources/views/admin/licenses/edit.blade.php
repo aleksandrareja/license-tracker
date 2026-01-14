@@ -75,7 +75,7 @@
                         Status
                     </label>
                     <select id="status" name="status" required
-                            class="w-full bg-white/10 text-white
+                            class="w-full bg-white/10 text-gray-400
                                    border border-white/10 rounded-lg px-4 py-2
                                    focus:outline-none focus:ring-2 focus:ring-indigo-500">
                         <option value="active" {{ $license->status == 'active' ? 'selected' : '' }}>Aktywna</option>

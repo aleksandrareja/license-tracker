@@ -63,7 +63,7 @@
                         id="role"
                         name="role"
                         required
-                        class="w-full bg-white/10 text-white
+                        class="w-full bg-white/10 text-gray-400
                                border border-white/10
                                rounded-lg px-4 py-2
                                focus:outline-none focus:ring-2

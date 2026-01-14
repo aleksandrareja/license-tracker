@@ -53,7 +53,7 @@
                         </div>
                         <div>
                             <span class="text-gray-400 text-sm">Status</span>
-                            <p class="text-white">{{ $license->status }}</p>
+                            <p class="{{ $license->status === 'active' ? 'text-green-400' : ($license->status === 'expired' ? 'text-red-400' : 'text-yellow-400') }}">{{ $license->status }}</p>
                         </div>
                         <div>
                             <span class="text-gray-400 text-sm">Data wygaśnięcia</span>

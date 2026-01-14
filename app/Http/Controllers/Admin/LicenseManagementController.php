@@ -17,7 +17,7 @@ class LicenseManagementController extends Controller
         }
 
         // Pobranie wszystkich licencji z bazy danych razem z powiązanymi produktami
-        $licenses = License::with('product')->get();
+        $licenses = License::with('product')->orderBy('status', 'asc')->orderBy('expiration_date', 'asc')->get();
 
 
         // Zwrócenie widoku z listą licencji i przekazanie danych w zmiennej 'licenses'
@@ -148,7 +148,7 @@ class LicenseManagementController extends Controller
             return redirect()->route('admin.licenses.users', $id)->with('error', 'Cannot add more users to this license. Maximum limit reached.');
         }
 
-
+        //INSERT INTO license_user (license_id, user_id) VALUES (?, ?)
         $license->users()->attach($request->user_id);
 
         return redirect()->route('admin.licenses.users', $license->id)->with('success', 'User added to license successfully.');

@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12 max-w-7xl mx-auto">
-        <div class="bg-white/5 p-6 rounded shadow">
+        <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
 
         <div class="space-y-4 md:hidden">
                 @foreach($users as $user)
