@@ -41,8 +41,8 @@ class DatabaseSeeder extends Seeder
 
 
         $this->call([
-            LicenseSeeder::class,
             ProductSeeder::class,
+            LicenseSeeder::class,
             LicenseUserSeeder::class,
         ]);
     }

@@ -64,7 +64,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('admin.licenses.users');
     Route::post('/admin/licenses/add_user/{id}', [LicenseManagementController::class, 'add_user'])
         ->name('admin.licenses.add_user');
-    Route::delete('/admin/licenses/remove_user/{id}', [LicenseManagementController::class, 'remove_user'])
+    Route::delete('/admin/licenses/remove_user/{id}', [LicenseManagementController::class, 'remove_user '])
         ->name('admin.licenses.remove_user');
 
 });
