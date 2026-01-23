@@ -21,7 +21,7 @@ class LicenseSeeder extends Seeder
         }
 
         for($i=0;$i<10;$i++) {
-            $user = $users->random();
+            //$user = $users->random();
             $product = $products->random();
 
             $expirationDate = now()->addDays(rand(-10, 60));

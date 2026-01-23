@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Carbon;
 
 class License extends Model
 {
@@ -14,9 +15,11 @@ class License extends Model
         'key',
         'max_users',
         'expiration_date',
-        'status',
+        'status', 
         'price',
     ];
+
+    // Relations 
 
     public function product()
     {
@@ -27,58 +30,83 @@ class License extends Model
     {
         return $this->belongsToMany(User::class);
     }
-    
-    public function countCurrentUsers()
+
+    //Users logic
+
+    public function countCurrentUsers(): int
     {
         return $this->users()->count();
     }
 
-    public function daysUntilExpiration()
+   // License status logic
+
+    public function isExpired(): bool
+    {
+        return $this->expiration_date !== null
+            && now()->greaterThan($this->expiration_date);
+    }
+
+    // Get effective status considering expiration
+
+    public function getEffectiveStatusAttribute(): string
+    {
+        if ($this->status === 'suspended') {
+            return 'suspended';
+        }
+
+        if ($this->isExpired()) {
+            return 'expired';
+        }
+
+        return 'active';
+    }
+
+    public function daysUntilExpiration(): string
     {
         if (!$this->expiration_date) {
             return 'N/A';
         }
 
-        $now = now();
-        $expiration = $this->expiration_date;
-
-        if ($now->greaterThan($expiration)) {
-            return 'Wygasła';
+        if ($this->isExpired()) {
+            return 'Expired';
         }
 
-         // policz pełne dni w górę
-        $hoursLeft = $now->diffInHours($expiration);
+        $hoursLeft = now()->diffInHours($this->expiration_date);
         $daysLeft = (int) ceil($hoursLeft / 24);
 
-        return $daysLeft . ' dni';
+        return $daysLeft . ' days';
     }
 
-    public static function activeLicensesCount()
+    public function expiresSoon(int $days = 14): bool
     {
-        return self::where('status', 'active')->count();
-    }
-
-    public function ifExpiresSoon()
-    {
-        if (!$this->expiration_date) {
+        if (!$this->expiration_date || $this->isExpired()) {
             return false;
         }
 
-        $now = now();
-        $expiration = $this->expiration_date;
-
-        if ($now->greaterThan($expiration)) {
-            return false;
-        }
-
-        $daysLeft = $now->diffInDays($expiration);
-        return $daysLeft <= 14;
+        return now()->diffInDays($this->expiration_date) <= $days;
     }
 
-    public static function totalRevenue()
+
+    // Statistics
+
+    public static function activeLicensesCount(): int
     {
-        return self::where('status', 'active')->sum('price');
+        return self::where('status', 'active')
+            ->where(function ($q) {
+                $q->whereNull('expiration_date')
+                  ->orWhere('expiration_date', '>', now());
+            })
+            ->count();
     }
 
+
+    public static function totalRevenue(): float
+    {
+        return self::where('status', 'active')
+            ->where(function ($q) {
+                $q->whereNull('expiration_date')
+                  ->orWhere('expiration_date', '>', now());
+            })
+            ->sum('price');
+    }
 }
-

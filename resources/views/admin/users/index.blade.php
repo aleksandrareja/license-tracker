@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold text-white">
-            Lista użytkowników
+            Users List
         </h2>
     </x-slot>
 
@@ -19,7 +19,7 @@
                         </div>
 
                         <div class="flex justify-between mt-2">
-                            <span class="text-gray-400 text-sm">Imię</span>
+                            <span class="text-gray-400 text-sm">Name</span>
                             <span class="text-white">{{ $user->name }}</span>
                         </div>
 
@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="flex justify-between mt-2">
-                            <span class="text-gray-400 text-sm">Rola</span>
+                            <span class="text-gray-400 text-sm">Role</span>
                             <span class="text-indigo-400 font-semibold">{{ $user->role }}</span>
                         </div>
 
@@ -44,8 +44,8 @@
                                 @method('DELETE')
                                 <button type="submit"
                                         class="text-red-400 hover:text-red-300"
-                                        onclick="return confirm('Usunąć użytkownika?')">
-                                    Usuń
+                                        onclick="return confirm('Delete user?')">
+                                    Delete
                                 </button>
                             </form>
                         </div>
@@ -57,10 +57,10 @@
                 <thead class="bg-white/10 text-gray-300">
                     <tr>
                         <th class="p-2">ID</th>
-                        <th class="p-2">Imię</th>
+                        <th class="p-2">Name</th>
                         <th class="p-2">Email</th>
-                        <th class="p-2">Rola</th>
-                        <th class="p-2">Akcje</th>
+                        <th class="p-2">Role</th>
+                        <th class="p-2">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -71,12 +71,12 @@
                             <td class="p-2 text-center text-gray-400">{{ $user->email }}</td>
                             <td class="p-2 text-center text-indigo-400">{{ $user->role }}</td>
                             <td class="p-2 text-right space-x-3">
-                                <!-- Edytuj, Usuń -->
-                                <a href="{{ route('admin.users.edit', $user->id) }}" class="text-indigo-400 hover:text-indigo-300 inline">Edytuj</a>
+                                <!-- Edit, Delete -->
+                                <a href="{{ route('admin.users.edit', $user->id) }}" class="text-indigo-400 hover:text-indigo-300 inline">Edit</a>
                                 <form action="{{ route('admin.users.delete', $user->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="text-red-400 hover:text-red-300" onclick="return confirm('Czy na pewno chcesz usunąć tego użytkownika?')">Usuń</button>
+                                    <button type="submit" class="text-red-400 hover:text-red-300" onclick="return confirm('Delete user?')">Delete</button>
                                 </form>
                             </td>
                         </tr>

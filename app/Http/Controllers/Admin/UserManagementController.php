@@ -14,10 +14,9 @@ class UserManagementController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        // Pobranie wszystkich użytkowników z bazy danych
         $users = User::all();
 
-        // Zwrócenie widoku z listą użytkowników i przekazanie danych w zmiennej 'users'
+        // Return view with the list of users
         return view('admin.users.index', compact('users'));
     }
 
@@ -27,7 +26,6 @@ class UserManagementController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        // Pobranie użytkownika o podanym ID
         $user = User::findOrFail($id);
 
         return view('admin.users.edit', compact('user'));

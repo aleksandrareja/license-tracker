@@ -47,18 +47,4 @@ class LicenseObserver
         //
     }
 
-    public function saving(License $license){
-        if (!$license->expiration_date) {
-            return;
-        }
-
-        if (Carbon::now()->greaterThan($license->expiration_date)) {
-            $license->status = 'expired';
-        } else {
-            // nie nadpisuj suspended
-            if ($license->status !== 'suspended') {
-                $license->status = 'active';
-            }
-        }
-    }
 }

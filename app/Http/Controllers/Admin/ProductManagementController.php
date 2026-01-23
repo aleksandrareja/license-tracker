@@ -16,7 +16,7 @@ class ProductManagementController extends Controller
 
         $products = Product::all();
 
-        // Logika wyświetlania listy produktów
+        // Return view with the list of products
         return view('admin.products.index', compact('products'));
     }
 
@@ -26,7 +26,6 @@ class ProductManagementController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        // Logika wyświetlania formularza tworzenia produktu
         return view('admin.products.create');
     }
 

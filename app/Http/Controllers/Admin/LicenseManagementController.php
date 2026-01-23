@@ -16,11 +16,16 @@ class LicenseManagementController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        // Pobranie wszystkich licencji z bazy danych razem z powiązanymi produktami
-        $licenses = License::with('product')->orderBy('status', 'asc')->orderBy('expiration_date', 'asc')->get();
+        // Get all licenses with related product information, ordered by status and expiration date
+        $licenses = License::with('product')
+            ->get()
+            ->sortBy(function($license) {
+                return $license->effective_status;
+            })
+            ->values();
 
 
-        // Zwrócenie widoku z listą licencji i przekazanie danych w zmiennej 'licenses'
+        // Return view with the list of licenses
         return view('admin.licenses.index', compact('licenses'));
     }
 
@@ -32,7 +37,6 @@ class LicenseManagementController extends Controller
 
         $products = Product::all();
 
-        // Logika wyświetlania formularza tworzenia licencji
         return view('admin.licenses.add', compact('products'));
     }
 
@@ -47,7 +51,7 @@ class LicenseManagementController extends Controller
             'key' => 'required|string|unique:licenses,key',
             'max_users' => 'required|integer|min:1',
             'expiration_date' => 'nullable|date',
-            'status' => 'required|in:active,expired,suspended',
+            'status' => 'required|in:active,suspended',
             'price' => 'required|numeric|min:0',
         ]);
 
@@ -62,7 +66,6 @@ class LicenseManagementController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        // Pobranie licencji o podanym ID
         $license = License::findOrFail($id);
         $products = Product::all();
 
@@ -83,7 +86,7 @@ class LicenseManagementController extends Controller
             'key' => 'required|string|unique:licenses,key,' . $license->id,
             'max_users' => 'required|integer|min:1',
             'expiration_date' => 'nullable|date',
-            'status' => 'required|in:active,expired,suspended',
+            'status' => 'required|in:active,suspended',
             'price' => 'required|numeric|min:0',
         ]);
 
@@ -110,7 +113,6 @@ class LicenseManagementController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        // Pobranie licencji wraz z powiązanymi użytkownikami
         $license = License::with(['users', 'product'])->findOrFail($licenseId);
         $users = $license->users;
         $other_users = User::whereNotIn('id', $users->pluck('id'))->get();

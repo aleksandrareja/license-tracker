@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold text-white">
-            Edytuj licencję
+            Edit License
         </h2>
     </x-slot>
 
@@ -11,17 +11,17 @@
                     border border-white/10">
 
             <p class="text-gray-400 mb-6">
-                Formularz edycji licencji
+                License edit form
             </p>
 
             <form action="{{ route('admin.licenses.update', $license->id) }}" method="POST" class="space-y-6">
                 @csrf
                 @method('PUT')
 
-                <!-- Produkt -->
+                <!-- Product -->
                 <div>
                     <label for="product_id" class="block text-sm text-gray-400 mb-1">
-                        Produkt
+                        Product
                     </label>
                     <select id="product_id" name="product_id" required
                             class="w-full bg-white/10 text-white
@@ -35,10 +35,10 @@
                     </select>
                 </div>
 
-                <!-- Klucz licencji -->
+                <!-- License key -->
                 <div>
                     <label for="key" class="block text-sm text-gray-400 mb-1">
-                        Klucz licencji
+                        License key
                     </label>
                     <textarea id="key" name="key" required
                               class="w-full bg-white/10 text-white
@@ -47,21 +47,21 @@
                                      resize-none h-24">{{ $license->key }}</textarea>
                 </div>
 
-                <!-- Maksymalna liczba użytkowników -->
+                <!-- Max users -->
                 <div>
                     <label for="max_users" class="block text-sm text-gray-400 mb-1">
-                        Maksymalna liczba użytkowników
+                        Max users
                     </label>
-                    <input type="number" id="max_users" name="max_users" value="{{ $license->max_users }}" required
+                    <input type="number" id="max_users" name="max_users" value="{{ $license->max_users }}" min="1" required
                            class="w-full bg-white/10 text-white
                                   border border-white/10 rounded-lg px-4 py-2
                                   focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 </div>
 
-                <!-- Data wygaśnięcia -->
+                <!-- Expiration date -->
                 <div>
                     <label for="expiration_date" class="block text-sm text-gray-400 mb-1">
-                        Data wygaśnięcia
+                        Expiration date
                     </label>
                     <input type="date" id="expiration_date" name="expiration_date" value="{{ $license->expiration_date }}" required
                            class="w-full bg-white/10 text-white
@@ -78,28 +78,27 @@
                             class="w-full bg-white/10 text-gray-400
                                    border border-white/10 rounded-lg px-4 py-2
                                    focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                        <option value="active" {{ $license->status == 'active' ? 'selected' : '' }}>Aktywna</option>
-                        <option value="expired" {{ $license->status == 'expired' ? 'selected' : '' }}>Wygasła</option>
-                        <option value="suspended" {{ $license->status == 'suspended' ? 'selected' : '' }}>Zawieszona</option>
+                        <option value="active" {{ $license->status == 'active' ? 'selected' : '' }}>Active</option>
+                        <option value="suspended" {{ $license->status == 'suspended' ? 'selected' : '' }}>Suspended</option>
                     </select>
                 </div>
 
-                <!-- Cena -->
+                <!-- Price -->
                 <div>
                     <label for="price" class="block text-sm text-gray-400 mb-1">
-                        Cena (PLN)
+                        Price ($)
                     </label>
-                    <input type="number" id="price" name="price" value="{{ $license->price }}" step="0.01" required
+                    <input type="number" id="price" name="price" value="{{ $license->price }}" step="0.01" min="0" required
                            class="w-full bg-white/10 text-white
                                   border border-white/10 rounded-lg px-4 py-2
                                   focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 </div>
 
-                <!-- Akcje -->
+                <!-- Actions -->
                 <div class="flex justify-end gap-4 items-center">
                     <a href="{{ route('admin.licenses') }}"
                        class="text-gray-400 hover:text-gray-300 transition">
-                        Anuluj
+                        Cancel
                     </a>
 
                     <button type="submit"
@@ -108,7 +107,7 @@
                                    px-6 py-2 rounded-lg
                                    shadow-[0_0_7px_rgba(99,102,241,0.6)]
                                    transition">
-                        Zapisz zmiany
+                        Save changes
                     </button>
                 </div>
 

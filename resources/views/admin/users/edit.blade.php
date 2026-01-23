@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold text-white">
-            Edytuj użytkownika
+            Edit User
         </h2>
     </x-slot>
 
@@ -11,7 +11,7 @@
                     border border-white/10">
 
             <p class="text-gray-100 mb-6">
-                Formularz edycji danych użytkownika
+                User data edit form
             </p>
 
             <form action="{{ route('admin.users.update', $user->id) }}" method="POST" class="space-y-6">
@@ -21,7 +21,7 @@
                 <!-- Name -->
                 <div>
                     <label for="name" class="block text-sm text-gray-400 mb-1">
-                        Imię
+                        Name
                     </label>
                     <input
                         type="text"
@@ -82,7 +82,7 @@
                 <div class="flex justify-end gap-4 pt-4 items-center">
                     <a href="{{ route('admin.users') }}"
                        class="text-gray-400 hover:text-gray-300 transition">
-                        Anuluj
+                        Cancel
                     </a>
 
                     <button
@@ -92,7 +92,7 @@
                                px-6 py-2 rounded-lg
                                shadow-[0_0_7px_rgba(99,102,241,0.6)]
                                transition">
-                        Zapisz zmiany
+                        Save changes
                     </button>
                 </div>
             </form>

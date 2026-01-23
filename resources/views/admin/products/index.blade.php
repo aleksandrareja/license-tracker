@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold text-white">
-            Lista produktów
+            Products List
         </h2>
     </x-slot>
 
@@ -15,7 +15,7 @@
                       px-5 py-2 rounded-lg
                       shadow-[0_0_7px_rgba(34,197,94,0.5)]
                       transition">
-                + Dodaj produkt
+                + Add product
             </a>
         </div>
 
@@ -35,20 +35,20 @@
                             {{ $product->name }}
                         </h3>
                         <p class="text-sm text-gray-400">
-                            Wersja: {{ $product->version ?? '—' }}
+                            Version: {{ $product->version ?? '—' }}
                         </p>
                     </div>
 
                     <!-- Description -->
                     <p class="text-gray-300 text-sm mb-4 line-clamp-3">
-                        {{ $product->description ?? 'Brak opisu produktu' }}
+                        {{ $product->description ?? 'No product description' }}
                     </p>
 
                     <!-- Price -->
                     <div class="flex items-center justify-between mb-4">
-                        <span class="text-gray-400 text-sm">Cena</span>
+                        <span class="text-gray-400 text-sm">Price</span>
                         <span class="text-indigo-400 font-semibold text-lg">
-                            {{ number_format($product->price, 2) }} zł
+                            {{ number_format($product->price, 2) }} $
                         </span>
                     </div>
 
@@ -56,7 +56,7 @@
                     <div class="flex justify-end gap-4 text-sm">
                         <a href="{{ route('admin.products.edit', $product->id) }}"
                            class="text-indigo-400 hover:text-indigo-300 transition">
-                            Edytuj
+                            Edit
                         </a>
 
                         <form action="{{ route('admin.products.delete', $product->id) }}"
@@ -65,8 +65,8 @@
                             @method('DELETE')
                             <button type="submit"
                                     class="text-red-400 hover:text-red-300 transition"
-                                    onclick="return confirm('Czy na pewno chcesz usunąć ten produkt?')">
-                                Usuń
+                                    onclick="return confirm('Delete product?')">
+                                Delete
                             </button>
                         </form>
                     </div>

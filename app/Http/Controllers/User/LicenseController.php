@@ -9,12 +9,17 @@ class LicenseController extends Controller
 {
     public function index()
     {
-        // Pobierz zalogowanego użytkownika
+        // Return list of licenses for the authenticated user
         $user = auth()->user();
 
-        $licenses_active = $user->licenses()->with('product')->where('status', 'active')->orderBy('expiration_date')->get();
-        $licenses_expired = $user->licenses()->with('product')->whereIn('status', ['expired', 'suspended'])->orderBy('expiration_date')->get();
+        $licenses = $user->licenses()
+            ->with('product')
+            ->get()
+            ->sortBy(function($license) {
+                return $license->effective_status;
+            })
+            ->values();
 
-        return view('user.licenses.index', compact('licenses_active', 'licenses_expired'));
+        return view('user.licenses.index', compact('licenses'));
     }
 }

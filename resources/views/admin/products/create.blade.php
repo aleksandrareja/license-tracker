@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold text-white">
-            Dodaj nowy produkt
+            Add New Product
         </h2>
     </x-slot>
 
@@ -13,10 +13,10 @@
             <form action="{{ route('admin.products.create') }}" method="POST" class="space-y-6">
                 @csrf
 
-                <!-- Nazwa -->
+                <!-- Name -->
                 <div>
                     <label for="name" class="block text-sm text-gray-400 mb-1">
-                        Nazwa produktu
+                        Product Name
                     </label>
                     <input type="text" id="name" name="name" required
                            class="w-full bg-white/10 text-white
@@ -24,10 +24,10 @@
                                   focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 </div>
 
-                <!-- Opis -->
+                <!-- Description -->
                 <div>
                     <label for="description" class="block text-sm text-gray-400 mb-1">
-                        Opis
+                        Description
                     </label>
                     <textarea id="description" name="description" required
                               class="w-full bg-white/10 text-white
@@ -36,10 +36,10 @@
                                      resize-none h-24"></textarea>
                 </div>
 
-                <!-- Wersja -->
+                <!-- Version -->
                 <div>
                     <label for="version" class="block text-sm text-gray-400 mb-1">
-                        Wersja
+                        Version
                     </label>
                     <input type="text" id="version" name="version" required
                            class="w-full bg-white/10 text-white
@@ -47,12 +47,12 @@
                                   focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 </div>
 
-                <!-- Cena -->
+                <!-- Price -->
                 <div>
                     <label for="price" class="block text-sm text-gray-400 mb-1">
-                        Cena (PLN)
+                        Price ($)
                     </label>
-                    <input type="number" id="price" name="price" step="0.01" required
+                    <input type="number" id="price" name="price" step="0.01" min="0" required
                            class="w-full bg-white/10 text-white
                                   border border-white/10 rounded-lg px-4 py-2
                                   focus:outline-none focus:ring-2 focus:ring-indigo-500">
@@ -66,7 +66,7 @@
                                    px-6 py-2 rounded-lg
                                    shadow-[0_0_7px_rgba(34,197,94,0.5)]
                                    transition">
-                        Dodaj produkt
+                        Add product
                     </button>
                 </div>
 
