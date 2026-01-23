@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained()->onDelete('cascade'); // powiązanie z produktem
             $table->string('key')->unique();       // unikalny klucz/licencja
             $table->date('expiration_date')->nullable(); // data wygaśnięcia
-            $table->enum('status', ['active', 'expired', 'suspended'])->default('active'); // status
+            $table->enum('status', ['active', 'suspended'])->default('active'); // status
             $table->decimal('price', 10, 2)->default(0); // cena licencji
             $table->timestamps();  // created_at, updated_at
         });
