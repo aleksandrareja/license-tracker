@@ -33,6 +33,22 @@ A web application for managing product licenses within a company.
 - client side: Laravel Blade, Vite, TailwindCSS  
 - authentication: Laravel Breeze  
 
+## Screenshots
+
+### Admin Perspective
+| Dashboard Overview | Product Catalog |
+|:---:|:---:|
+| <img src="assets/admin-dashboard.jpg" width="400"> | <img src="assets/admin-products.jpg" width="400"> |
+
+| License Management | User Directory |
+|:---:|:---:|
+| <img src="assets/admin-licenses.jpg" width="400"> | <img src="assets/admin-users.jpg" width="400"> |
+
+### User Perspective
+| User Dashboard | My Licenses |
+|:---:|:---:|
+| <img src="assets/user-dashboard.jpg" width="400"> | <img src="assets/user-licenses.jpg" width="400"> |
+
 ## Requirements
 Versions of software used to build the application  
 (the application has not been tested for compatibility with earlier versions):
