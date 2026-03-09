@@ -31,7 +31,7 @@ class LicenseSeeder extends Seeder
                 'key' => 'LIC-' . strtoupper(bin2hex(random_bytes(5))),
                 'max_users' => rand(1, 10),
                 'expiration_date' => $expirationDate,
-                'status' => $expirationDate < now() ? 'expired' : 'active',
+                'status' => 'active',
                 'price' => rand(100, 1000),
             ]);
         }
